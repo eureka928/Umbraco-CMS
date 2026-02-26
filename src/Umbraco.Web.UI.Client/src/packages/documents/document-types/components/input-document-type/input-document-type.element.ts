@@ -3,6 +3,7 @@ import { UMB_DOCUMENT_TYPE_WORKSPACE_MODAL } from '../../constants.js';
 import { UMB_EDIT_DOCUMENT_TYPE_WORKSPACE_PATH_PATTERN } from '../../paths.js';
 import { UmbDocumentTypePickerInputContext } from './input-document-type.context.js';
 import { css, customElement, html, nothing, property, repeat, state, when } from '@umbraco-cms/backoffice/external/lit';
+import { UUIBlinkAnimationValue } from '@umbraco-cms/backoffice/external/uui';
 import { splitStringToArray } from '@umbraco-cms/backoffice/utils';
 import { UmbChangeEvent } from '@umbraco-cms/backoffice/event';
 import { UmbFormControlMixin } from '@umbraco-cms/backoffice/validation';
@@ -280,6 +281,37 @@ export class UmbInputDocumentTypeElement extends UmbFormControlMixin<string | un
 		css`
 			#btn-add {
 				width: 100%;
+			}
+
+			uui-ref-node-document-type {
+				position: relative;
+			}
+
+			uui-ref-node-document-type[drag-placeholder] {
+				visibility: hidden;
+			}
+
+			uui-ref-node-document-type[drag-placeholder]::after {
+				visibility: visible;
+				content: '';
+				position: absolute;
+				z-index: 1;
+				pointer-events: none;
+				inset: 0;
+				border: 2px solid var(--uui-color-interactive-emphasis);
+				border-radius: var(--uui-border-radius);
+				animation: ${UUIBlinkAnimationValue};
+			}
+
+			uui-ref-node-document-type[drag-placeholder]::before {
+				visibility: visible;
+				content: '';
+				position: absolute;
+				pointer-events: none;
+				inset: 0;
+				border-radius: var(--uui-border-radius);
+				background-color: var(--uui-color-interactive-emphasis);
+				opacity: 0.12;
 			}
 		`,
 	];
